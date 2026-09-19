@@ -1,38 +1,63 @@
 # Research Design Lab Template
 
-An agent-native, executable research project template for keeping research candidates, evidence, code, decisions, and durable assets distinct and traceable.
+An intentionally small, agent-native starting point for executable research. It separates candidate research, evidence, and explicit Owner-adopted project state so a new project can begin work without inheriting a domain or an architecture.
+
+## Start a new project
+
+1. Create a new repository from this template and replace this README's title and opening paragraph with the project's private identity. Do not retain `Research Design Lab Template` as a second title or copy the generic introduction below a project-specific introduction.
+2. Create `TEMPLATE_BASELINE.md` from the checklist below. It records the template source/version, generation date, and intentional local changes; it is not a continuing link or synchronization mechanism.
+3. Complete `project/CHARTER_TEMPLATE.md` as a project charter. Keep unknowns as unknowns.
+4. Add candidates to `hypotheses/REGISTER.md`; admit research or experiments through their templates before treating an output as evidence.
+5. Keep compact, reviewable evidence in the repository and keep generated or heavyweight material at the storage boundary described below.
+
+Framework sections that may remain after specialization are **State model**, **Directory roles**, **Storage boundaries**, and **Working with agents**. Replace any template branding, placeholder project name, template quick-start text, and example-only identity content. Delete instructions that no longer fit rather than leaving two competing repository identities.
+
+`TEMPLATE_BASELINE.md` should contain only:
+
+```markdown
+# Template baseline
+
+- Template source: <repository URL or local source identity>
+- Template revision or release: <tag or commit>
+- Generated on: <YYYY-MM-DD>
+- Project identity established by: <Owner decision or reference, if any>
+- Intentional deviations from the template: <none or short list>
+```
 
 ## State model
 
-This repository is canonical for executable project state. `hypotheses/` contains candidate research; `project/` contains only Owner-adopted design. The lifecycle is hypothesis → evidence → explicit Owner promotion. Results, rankings, and recommendations never select an architecture on their own.
+`question -> hypothesis -> admitted experiment/research -> evidence -> interpretation -> Owner decision -> adopted project state`
+
+Each transition must remain traceable. Evidence does not automatically become design. An assistant recommendation, score, ranking, or synthesis is not an Owner decision. Failed and blocked work remains evidence, with its limits recorded. A synthesis can recommend a next step but cannot promote a candidate. Only an explicit Owner decision, linked to its supporting evidence, can place adopted state in `project/`.
 
 ## Directory roles
 
-- `project/` — adopted design, charter, decisions, and verification records.
-- `hypotheses/` — candidates and their lifecycle.
-- `experiments/` — admitted experiments and compact evidence/provenance.
-- `research/`, `sources/`, `methods/` — synthesis, traceable source metadata, and reproducible methods.
-- `src/`, `tests/`, `shared/`, `deliverables/` — implementation, verification, small reusable project material, and communication artifacts.
-- `generated/` and `scratch/` — ignored, non-authoritative local output and disposable work.
+- `project/` — Owner-adopted charter, decisions, and design state only.
+- `hypotheses/` — candidate research and its register.
+- `experiments/` — admitted research/experiment records and compact evidence manifests.
+- `research/` — research log, conversation ingestion, prior-art workflow, and syntheses.
+- `sources/` — source metadata and screening state; Zotero remains authoritative for managed bibliography and attachments.
+- `methods/`, `src/`, `tests/`, `shared/`, `deliverables/` — reproducible methods, implementation, checks, small reusable material, and communication artifacts.
+
+The starter files are templates, not assertions that a project has a mission, a hypothesis, a method, a result, or a chosen design.
 
 ## Storage boundaries
 
-Light generated output may be local. Heavy work uses a machine-local external workspace; paths are examples only and are not canonical research identity. Durable heavyweight assets live in `ResearchLibrary` and are referenced logically:
+| Kind | Location | Commit rule |
+| --- | --- | --- |
+| Light generated output | `<repo>/generated/` | Ignored and non-authoritative; promote only compact, deliberate evidence. |
+| Heavy work | Machine-local external work root | Do not put machine paths in tracked records; record method, run ID, and logical references. |
+| Durable large asset | `ResearchLibrary` | Reference logically, for example `projects/<project>/runs/<run-id>/<artifact>`. |
+| Tracked evidence | Repository | Commit compact provenance, hashes/inventory, interpretation boundary, and decision-relevant outputs. |
 
-```yaml
-asset_ref: projects/<project>/runs/<run-id>/<artifact>
-```
+Do not require Git LFS or an asset manager. `scratch/` is ignored disposable work. Do not force-add ignored output merely because a run completed.
 
-Record source identity, run ID, hashes or output inventory, status, failures, and interpretation boundaries with material evidence.
+## Working with agents and conversations
 
-## Related systems
+Read [research/CONVERSATION_INGESTION.md](research/CONVERSATION_INGESTION.md) before converting a research conversation into project state. It preserves Owner-provided statements and unresolved alternatives while avoiding raw transcript copies. Read [research/PRIOR_ART_WORKFLOW.md](research/PRIOR_ART_WORKFLOW.md) before a prior-art pass.
 
-The Research Vault receives only compact cross-project knowledge and never replaces project evidence. Zotero remains authoritative for bibliography and managed attachments; this repository stores only the metadata needed for traceability.
+Claims use explicit labels: **SOURCE FACT**, **OWNER-PROVIDED**, **INFERENCE**, **ASSUMPTION**, **DESIGN CHOICE**, or **CALCULATION / RESULT**. Agents work within admitted scope, preserve Owner decisions, and do not add services, databases, RAG, middleware, or custom workflow tooling without a demonstrated requirement.
 
-## Agent-native operation
+## Validation
 
-Agents work within admitted scope, preserve Owner decisions, make claims with explicit type, and keep changes reviewable. Do not introduce middleware, services, databases, or custom tooling without a demonstrated requirement.
-
-## Quick start and template evolution
-
-Create a private repository from this template, define a charter without inventing requirements, admit hypotheses and experiments explicitly, and commit compact decision-relevant evidence. Generated repositories are independent: template changes are versioned, reviewed for applicability, and ported through an explicit branch or PR. No automatic sync, submodule, subtree, or template remote is used.
+Run `pwsh -File tests/validate-template.ps1`. It is deliberately a small repository-contract check, not a workflow engine.

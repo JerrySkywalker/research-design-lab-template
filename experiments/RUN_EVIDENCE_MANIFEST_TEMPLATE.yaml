@@ -1,0 +1,19 @@
+# Compact tracked evidence only. Do not list raw sweeps or rebuildable bulk output.
+run_id: <RUN-id>
+status: <COMPLETE|FAILED|BLOCKED>
+recorded_on: <YYYY-MM-DD>
+method_ref: <relative path or stable method identity>
+input_identities:
+  - <source ID, dataset identity, or discussion reference>
+environment:
+  tools:
+    - name: <tool name>
+      version: <version or unknown>
+outputs:
+  - kind: <compact result|figure|external asset>
+    ref: <relative path or logical asset_ref>
+    sha256: <hash or not-applicable>
+    size_bytes: <integer or not-applicable>
+failure_or_block: <none or concise preserved record>
+interpretation_boundary: <what this evidence does and does not establish>
+reproduction: <concise steps or why not reproducible>
