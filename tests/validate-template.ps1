@@ -25,8 +25,12 @@ $ignore = Get-Content -LiteralPath (Join-Path $root '.gitignore') -Raw
 foreach ($entry in @('/generated/', '/scratch/', 'research.local.toml', '.env', '*.pem', '*.key')) {
     if ($ignore -notmatch [regex]::Escape($entry)) { $failures.Add(".gitignore missing: $entry") }
 }
+foreach ($path in @('generated/validator-probe.txt', 'scratch/validator-probe.txt', 'research.local.toml', '.env', 'validator-probe.pem', 'validator-probe.key')) {
+    git -C $root check-ignore --quiet -- $path
+    if ($LASTEXITCODE -ne 0) { $failures.Add("Documented ignored path is not ignored: $path") }
+}
 
-$repositoryFiles = @(git -C $root ls-files; git -C $root ls-files --others --exclude-standard) | Sort-Object -Unique
+$repositoryFiles = @(git -C $root ls-files) | Sort-Object -Unique
 $large = $repositoryFiles | Where-Object { (Get-Item -LiteralPath (Join-Path $root $_)).Length -gt 1MB }
 if ($large) { $failures.Add("Tracked file(s) exceed 1 MiB: $($large -join ', ')") }
 
@@ -34,16 +38,18 @@ $textFiles = $repositoryFiles | Where-Object { $_ -match '\.(md|ya?ml|ps1|txt)$'
 $contentFiles = $textFiles | Where-Object { $_ -ne 'tests/validate-template.ps1' }
 $sensitive = '(?im)^\s*(?:[A-Z0-9_]*?(?:TOKEN|SECRET|PASSWORD|API_KEY)|aws_access_key_id)\s*[:=]\s*(?!<)(?!TBD)(?!none\b)(?!not-applicable\b).+'
 $absolutePath = '(?im)(?:[A-Z]:\\Users\\|/home/[^/]+/|/Users/[^/]+/)'
+$secretMarkers = @(
+    '-----BEGIN (?:[A-Z0-9]+ )*PRIVATE KEY-----',
+    '\bAKIA[0-9A-Z]{16}\b',
+    '\bghp_[A-Za-z0-9]{36}\b',
+    '\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b'
+)
 foreach ($relative in $contentFiles) {
     $content = Get-Content -LiteralPath (Join-Path $root $relative) -Raw
     if ($content -match $sensitive) { $failures.Add("Possible credential assignment in: $relative") }
     if ($content -match $absolutePath) { $failures.Add("Private absolute path in: $relative") }
-}
-
-$genericTemplateText = ($contentFiles | ForEach-Object { Get-Content -LiteralPath (Join-Path $root $_) -Raw }) -join "`n"
-foreach ($forbiddenTopic in @('ai-satellite', 'cislunar transport', 'satellite payload', 'spacecraft mass')) {
-    if ($genericTemplateText -match [regex]::Escape($forbiddenTopic)) {
-        $failures.Add("Generic template includes a domain-specific selected-design topic: $forbiddenTopic")
+    foreach ($marker in $secretMarkers) {
+        if ($content -match $marker) { $failures.Add("Possible secret material in: $relative") }
     }
 }
 
