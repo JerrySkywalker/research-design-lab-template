@@ -35,3 +35,5 @@ Zotero owns bibliography and managed attachments. Store only citation/source met
 ## Agent discipline
 
 Agents mutate only admitted scope, preserve Owner decisions, and never select an architecture by implication. Do not add credentials, canonical machine-specific paths, or middleware without demonstrated need.
+
+Before creating or changing a specialized instance, read [specialization](docs/SPECIALIZATION.md) and [safe instance upgrades](docs/UPGRADE.md). A template release is not authority to overwrite project state, Owner decisions, local governance, or configuration; upgrades are semantic three-way reviews on an admitted branch.

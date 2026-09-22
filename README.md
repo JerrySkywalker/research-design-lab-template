@@ -5,24 +5,14 @@ An intentionally small, agent-native starting point for executable research. It 
 ## Start a new project
 
 1. Create a new repository from this template and replace this README's title and opening paragraph with the project's private identity. Do not retain `Research Design Lab Template` as a second title or copy the generic introduction below a project-specific introduction.
-2. Create `TEMPLATE_BASELINE.md` from the checklist below. It records the template source/version, generation date, and intentional local changes; it is not a continuing link or synchronization mechanism.
+2. Create the concise `TEMPLATE_BASELINE.md` and cumulative `TEMPLATE_UPGRADES.md` described in [specialization](docs/SPECIALIZATION.md). They record provenance and review state; they are not a continuing link or synchronization mechanism.
 3. Complete `project/CHARTER_TEMPLATE.md` as a project charter. Keep unknowns as unknowns.
 4. Add candidates to `hypotheses/REGISTER.md`; admit research or experiments through their templates before treating an output as evidence.
 5. Keep compact, reviewable evidence in the repository and keep generated or heavyweight material at the storage boundary described below.
 
 Framework sections that may remain after specialization are **State model**, **Directory roles**, **Storage boundaries**, and **Working with agents**. Replace any template branding, placeholder project name, template quick-start text, and example-only identity content. Delete instructions that no longer fit rather than leaving two competing repository identities.
 
-`TEMPLATE_BASELINE.md` should contain only:
-
-```markdown
-# Template baseline
-
-- Template source: <repository URL or local source identity>
-- Template revision or release: <tag or commit>
-- Generated on: <YYYY-MM-DD>
-- Project identity established by: <Owner decision or reference, if any>
-- Intentional deviations from the template: <none or short list>
-```
+Use [safe instance upgrades](docs/UPGRADE.md) when reviewing a later template release. It defines the shared ownership roles, exact version semantics, four final delta dispositions, and the rule that populated project research is never overwritten by a template upgrade.
 
 ## State model
 
