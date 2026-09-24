@@ -27,9 +27,12 @@ Each transition must remain traceable. Evidence does not automatically become de
 - `experiments/` — admitted research/experiment records and compact evidence manifests.
 - `research/` — research log, conversation ingestion, prior-art workflow, and syntheses.
 - `sources/` — source metadata and screening state; Zotero remains authoritative for managed bibliography and attachments.
+- `terminology/` — project-local bilingual terms, optional canonical Vault references, and promotion history.
 - `methods/`, `src/`, `tests/`, `shared/`, `deliverables/` — reproducible methods, implementation, checks, small reusable material, and communication artifacts.
 
 The starter files are templates, not assertions that a project has a mission, a hypothesis, a method, a result, or a chosen design.
+
+Use [project terminology guidance](docs/TERMINOLOGY.md) for local wording, optional Git-native Vault references, and explicit promotion. A project works without a mounted or live Vault.
 
 ## Storage boundaries
 

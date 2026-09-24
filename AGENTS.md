@@ -6,6 +6,8 @@ This repository is canonical for this project's executable research state. The R
 
 `hypotheses/` contains candidate research. `project/` contains explicitly Owner-adopted design only. No result, directory name, score, ranking, recommendation, or synthesis promotes a hypothesis. Promotion requires an explicit Owner decision and traceable evidence.
 
+`terminology/` contains project-local wording and context. Use [terminology guidance](docs/TERMINOLOGY.md) for optional canonical Vault references and reviewed promotion. A reference or proposal does not make a local term cross-project canonical; no Vault connection is required for project validation.
+
 ## Claim and experiment discipline
 
 Material statements distinguish **SOURCE FACT**, **OWNER-PROVIDED**, **INFERENCE**, **ASSUMPTION**, **DESIGN CHOICE**, and **CALCULATION / RESULT**. Unknowns remain explicit.
