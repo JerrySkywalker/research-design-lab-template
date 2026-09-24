@@ -65,6 +65,7 @@ Keep the baseline small. Store cumulative detail in `TEMPLATE_UPGRADES.md`:
 
 - `project/` holds Owner-adopted state. A real charter, decision log, or adopted design is instance-owned and must not be replaced, rewritten, or reinterpreted by an upgrade.
 - Populated hypotheses, experiments, sources, research logs, syntheses, evidence manifests, methods, source code, tests, shared material, and deliverables are instance-owned. Preserve them byte-for-byte unless an admitted reviewed adaptation explicitly names the change.
+- Populated `terminology/` notes and register are instance-owned. The blank local term form and generic terminology guidance are template-owned review candidates; do not overwrite local wording or silently follow changed Vault terms.
 - Reusable blank forms and generic workflow documents are template-owned. A new form/workflow can be ported for future use without altering real state created from an older form.
 - A populated starter register is instance-owned. Review a later template column/instruction as `ADAPT`, preserving every existing row and identifier.
 - README and AGENTS require specialization-aware review. Preserve project identity and local Owner/agent authority; never restore template onboarding or pull v0.5 governance forward.

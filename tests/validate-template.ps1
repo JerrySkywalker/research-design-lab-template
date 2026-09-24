@@ -5,7 +5,8 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $required = @(
     'AGENTS.md', 'README.md', '.gitignore',
-    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
+    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'docs/TERMINOLOGY.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
+    'terminology/REGISTER.md', 'terminology/LOCAL_TERM_TEMPLATE.md',
     'project/CHARTER_TEMPLATE.md', 'project/DECISION_LOG_TEMPLATE.md',
     'hypotheses/REGISTER.md', 'hypotheses/HYPOTHESIS_TEMPLATE.md',
     'experiments/REGISTER.md', 'experiments/EXPERIMENT_TEMPLATE.md',
@@ -40,6 +41,12 @@ if ($failures.Count -eq 0) {
         if ($fixture -notmatch [regex]::Escape($term)) { $failures.Add("Synthetic scenario definition is incomplete: $term") }
     }
     if ($upgrade -notmatch 'JSON/YAML') { $failures.Add('Upgrade contract does not prohibit a machine-readable upgrade manifest.') }
+    $termGuide = Get-Content -LiteralPath (Join-Path $root 'docs/TERMINOLOGY.md') -Raw
+    $termForm = Get-Content -LiteralPath (Join-Path $root 'terminology/LOCAL_TERM_TEMPLATE.md') -Raw
+    foreach ($term in @('project-local', 'Canonical Vault repository', 'Canonical Vault note', 'Canonical revision used', 'Promotion review')) {
+        if ($term -notmatch 'project-local' -and $termForm -notmatch [regex]::Escape($term)) { $failures.Add("Local term form missing: $term") }
+        if ($term -eq 'project-local' -and $termGuide -notmatch 'project-local') { $failures.Add('Terminology guide missing project-local authority.') }
+    }
 }
 
 $ignore = Get-Content -LiteralPath (Join-Path $root '.gitignore') -Raw
