@@ -5,6 +5,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $required = @(
     'AGENTS.md', 'README.md', '.gitignore',
+    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
     'project/CHARTER_TEMPLATE.md', 'project/DECISION_LOG_TEMPLATE.md',
     'hypotheses/REGISTER.md', 'hypotheses/HYPOTHESIS_TEMPLATE.md',
     'experiments/REGISTER.md', 'experiments/EXPERIMENT_TEMPLATE.md',
@@ -19,6 +20,26 @@ foreach ($relative in $required) {
     if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Leaf)) {
         $failures.Add("Missing required template contract file: $relative")
     }
+}
+
+if ($failures.Count -eq 0) {
+    $upgrade = Get-Content -LiteralPath (Join-Path $root 'docs/UPGRADE.md') -Raw
+    $specialization = Get-Content -LiteralPath (Join-Path $root 'docs/SPECIALIZATION.md') -Raw
+    $fixture = Get-Content -LiteralPath (Join-Path $root 'tests/fixtures/v0.2-instance-lifecycle.md') -Raw
+    foreach ($term in @(
+        'TEMPLATE_OWNED', 'INSTANCE_OWNED', 'INSTANCE_SPECIALIZED', 'BOOTSTRAP_ONLY',
+        'PORT', 'ADAPT', 'SKIP', 'ALREADY_PRESENT',
+        'Generated from', 'Last reviewed', 'Reconciled through'
+    )) {
+        if ($upgrade -notmatch [regex]::Escape($term)) { $failures.Add("Upgrade contract missing lifecycle term: $term") }
+    }
+    foreach ($term in @('TEMPLATE_BASELINE.md', 'TEMPLATE_UPGRADES.md', 'per-file ownership metadata')) {
+        if ($specialization -notmatch [regex]::Escape($term)) { $failures.Add("Specialization contract missing lifecycle boundary: $term") }
+    }
+    foreach ($term in @('020fc7343e8bb7ec7182b3898c75ec7fc03ba447', 'OS-local temporary directory', 'Formal execution')) {
+        if ($fixture -notmatch [regex]::Escape($term)) { $failures.Add("Synthetic scenario definition is incomplete: $term") }
+    }
+    if ($upgrade -notmatch 'JSON/YAML') { $failures.Add('Upgrade contract does not prohibit a machine-readable upgrade manifest.') }
 }
 
 $ignore = Get-Content -LiteralPath (Join-Path $root '.gitignore') -Raw
