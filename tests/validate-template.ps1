@@ -54,17 +54,22 @@ if ($failures.Count -eq 0) {
 }
 
 $ignore = Get-Content -LiteralPath (Join-Path $root '.gitignore') -Raw
-foreach ($entry in @('/generated/', '/scratch/', 'research.local.toml', '.env', '*.pem', '*.key')) {
+foreach ($entry in @('/generated/', '/scratch/', '/cache/', '/work/', 'research.local.toml', '.env', '*.pem', '*.key')) {
     if ($ignore -notmatch [regex]::Escape($entry)) { $failures.Add(".gitignore missing: $entry") }
 }
-foreach ($path in @('generated/validator-probe.txt', 'scratch/validator-probe.txt', 'research.local.toml', '.env', 'validator-probe.pem', 'validator-probe.key')) {
+foreach ($path in @('generated/validator-probe.txt', 'scratch/validator-probe.txt', 'cache/validator-probe.txt', 'work/validator-probe.txt', 'research.local.toml', '.env', 'validator-probe.pem', 'validator-probe.key')) {
     git -C $root check-ignore --quiet -- $path
     if ($LASTEXITCODE -ne 0) { $failures.Add("Documented ignored path is not ignored: $path") }
 }
 
 $repositoryFiles = @(git -C $root ls-files) | Sort-Object -Unique
-$large = $repositoryFiles | Where-Object { (Get-Item -LiteralPath (Join-Path $root $_)).Length -gt 1MB }
-if ($large) { $failures.Add("Tracked file(s) exceed 1 MiB: $($large -join ', ')") }
+$generated = $repositoryFiles | Where-Object { $_ -match '^(generated|scratch|cache|work)/' }
+if ($generated) { $failures.Add("Generated/cache/work file(s) are tracked: $($generated -join ', ')") }
+$externalHeavyExtensions = @('.zip', '.7z', '.tar', '.gz', '.sqlite', '.db', '.h5', '.hdf5', '.parquet', '.mp4', '.mov', '.avi')
+$externalHeavy = $repositoryFiles | Where-Object { [IO.Path]::GetExtension($_).ToLowerInvariant() -in $externalHeavyExtensions }
+if ($externalHeavy) { $failures.Add("External-heavy material is tracked: $($externalHeavy -join ', ')") }
+$reviewRequired = $repositoryFiles | Where-Object { (Get-Item -LiteralPath (Join-Path $root $_)).Length -gt 1MB }
+if ($reviewRequired) { Write-Output "REVIEW: tracked material over 1 MiB requires documented value, provenance, and repository-growth review: $($reviewRequired -join ', ')" }
 
 $textFiles = $repositoryFiles | Where-Object { $_ -match '\.(md|ya?ml|ps1|txt)$' -or $_ -in @('README.md', 'AGENTS.md', '.gitignore') }
 $contentFiles = $textFiles | Where-Object { $_ -ne 'tests/validate-template.ps1' }
