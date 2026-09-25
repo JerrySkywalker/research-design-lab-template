@@ -45,6 +45,10 @@ Use [project terminology guidance](docs/TERMINOLOGY.md) for local wording, optio
 
 Do not require Git LFS or an asset manager. `scratch/` is ignored disposable work. Do not force-add ignored output merely because a run completed.
 
+Use portable roles: **source** is reviewable Git state; **work/build** is disposable execution; **cache** is rebuildable data; **artifact** holds retained run receipts and audit evidence; **durable asset** holds large material whose logical reference and provenance belong in Git. Each host maps these roles locally. The repository must not depend on a particular drive, cloud folder, or mounted provider.
+
+Tracked source, methods, configuration, tests, source metadata, compact manifests, and selected decision-relevant evidence are normal Git material. A larger compact figure or dataset requires deliberate review for value, provenance, and repository-growth cost; size alone does not make it invalid evidence. Raw sweeps, dense histories, tool databases, archives, videos, and rebuildable bulk output are external-heavy material. Record a logical `asset_ref`, producer run, hash and size when meaningful, and reproduction or retrieval context. Keep generated and cache data out of canonical Git state. No asset service or Git LFS is required.
+
 ## Working with agents and conversations
 
 Read [research/CONVERSATION_INGESTION.md](research/CONVERSATION_INGESTION.md) before converting a research conversation into project state. It preserves Owner-provided statements and unresolved alternatives while avoiding raw transcript copies. Read [research/PRIOR_ART_WORKFLOW.md](research/PRIOR_ART_WORKFLOW.md) before a prior-art pass.

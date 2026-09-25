@@ -1,5 +1,7 @@
 /generated/
 /scratch/
+/cache/
+/work/
 
 __pycache__/
 *.py[cod]
