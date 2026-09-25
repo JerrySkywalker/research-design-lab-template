@@ -62,3 +62,5 @@ Claims use explicit labels: **SOURCE FACT**, **OWNER-PROVIDED**, **INFERENCE**, 
 ## Validation
 
 Run `pwsh -File tests/validate-template.ps1`. It is deliberately a small repository-contract check, not a workflow engine.
+
+Template source contributors should read [contributing guidance](CONTRIBUTING.md), the [changelog](CHANGELOG.md), and the [maintainer release procedure](docs/RELEASING.md). The source repository runs template checks on Windows and Linux; a generated instance may replace that source-only CI with its own checks.

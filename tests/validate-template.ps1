@@ -4,8 +4,8 @@ param()
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $required = @(
-    'AGENTS.md', 'README.md', '.gitignore',
-    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'docs/TERMINOLOGY.md', 'docs/GOVERNANCE.md', 'docs/INTEGRATIONS.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
+    'AGENTS.md', 'README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md', '.gitignore', '.github/workflows/template-checks.yml',
+    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'docs/TERMINOLOGY.md', 'docs/GOVERNANCE.md', 'docs/INTEGRATIONS.md', 'docs/RELEASING.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
     'terminology/REGISTER.md', 'terminology/LOCAL_TERM_TEMPLATE.md',
     'project/CHARTER_TEMPLATE.md', 'project/DECISION_LOG_TEMPLATE.md',
     'hypotheses/REGISTER.md', 'hypotheses/HYPOTHESIS_TEMPLATE.md',
@@ -68,7 +68,7 @@ if ($generated) { $failures.Add("Generated/cache/work file(s) are tracked: $($ge
 $externalHeavyExtensions = @('.zip', '.7z', '.tar', '.gz', '.sqlite', '.db', '.h5', '.hdf5', '.parquet', '.mp4', '.mov', '.avi')
 $externalHeavy = $repositoryFiles | Where-Object { [IO.Path]::GetExtension($_).ToLowerInvariant() -in $externalHeavyExtensions }
 if ($externalHeavy) { $failures.Add("External-heavy material is tracked: $($externalHeavy -join ', ')") }
-$reviewRequired = $repositoryFiles | Where-Object { (Get-Item -LiteralPath (Join-Path $root $_)).Length -gt 1MB }
+$reviewRequired = $repositoryFiles | Where-Object { (Get-Item -LiteralPath (Join-Path $root $_) -Force).Length -gt 1MB }
 if ($reviewRequired) { Write-Output "REVIEW: tracked material over 1 MiB requires documented value, provenance, and repository-growth review: $($reviewRequired -join ', ')" }
 
 $textFiles = $repositoryFiles | Where-Object { $_ -match '\.(md|ya?ml|ps1|txt)$' -or $_ -in @('README.md', 'AGENTS.md', '.gitignore') }
