@@ -2,6 +2,10 @@
 
 This file records public template changes. An instance has its own history and does not inherit a later template release automatically.
 
+## v1.0.0
+
+- First stable Research Template Pair contract. Carries the qualified v0.9 RC research model without a new feature or schema change.
+
 ## v0.9.0
 
 - Added a portable Python validator entry point while retaining PowerShell compatibility; qualified the feature-frozen full lifecycle on synthetic instances. No research-state feature was added.
