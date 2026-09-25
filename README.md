@@ -49,6 +49,8 @@ Do not require Git LFS or an asset manager. `scratch/` is ignored disposable wor
 
 Read [research/CONVERSATION_INGESTION.md](research/CONVERSATION_INGESTION.md) before converting a research conversation into project state. It preserves Owner-provided statements and unresolved alternatives while avoiding raw transcript copies. Read [research/PRIOR_ART_WORKFLOW.md](research/PRIOR_ART_WORKFLOW.md) before a prior-art pass.
 
+The [governance contract](docs/GOVERNANCE.md) defines `CAPTURE`, `ROUTINE_UPDATE`, and `CANONICAL_CHANGE`, the human and Owner review gates, evidence and decision boundaries, and ordinary Git handling for concurrent work.
+
 Claims use explicit labels: **SOURCE FACT**, **OWNER-PROVIDED**, **INFERENCE**, **ASSUMPTION**, **DESIGN CHOICE**, or **CALCULATION / RESULT**. Agents work within admitted scope, preserve Owner decisions, and do not add services, databases, RAG, middleware, or custom workflow tooling without a demonstrated requirement.
 
 ## Validation

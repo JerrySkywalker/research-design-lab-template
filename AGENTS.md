@@ -1,5 +1,7 @@
 # Research Design Lab Agent Contract
 
+Read [the governance contract](docs/GOVERNANCE.md) before changing research state. Classify each mutation as `CAPTURE`, `ROUTINE_UPDATE`, or `CANONICAL_CHANGE`; a commit or passing check never grants scientific authority. Human review is required for evidence admission and canonical meaning; only an explicit Owner decision adopts project state. Nested `AGENTS.md` files may narrow these rules but cannot weaken them.
+
 ## Canonical state
 
 This repository is canonical for this project's executable research state. The Research Vault is a knowledge consumer and promotion destination, not a replacement for project evidence, code, or decisions.
