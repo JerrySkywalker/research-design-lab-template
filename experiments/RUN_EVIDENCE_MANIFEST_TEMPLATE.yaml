@@ -14,6 +14,8 @@ outputs:
     ref: <relative path or logical asset_ref>
     sha256: <hash or not-applicable>
     size_bytes: <integer or not-applicable>
+# For an external asset, the ref is a logical asset_ref; retain producer run (run_id),
+# relevant content/storage revision, and retrieval context in the linked run record.
 failure_or_block: <none or concise preserved record>
 interpretation_boundary: <what this evidence does and does not establish>
 reproduction: <concise steps or why not reproducible>
