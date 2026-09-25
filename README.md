@@ -34,6 +34,8 @@ The starter files are templates, not assertions that a project has a mission, a 
 
 Use [project terminology guidance](docs/TERMINOLOGY.md) for local wording, optional Git-native Vault references, and explicit promotion. A project works without a mounted or live Vault.
 
+See [external integration boundaries](docs/INTEGRATIONS.md) for bibliography identifiers, durable asset provenance, editor/host portability, and provider-neutral agents.
+
 ## Storage boundaries
 
 | Kind | Location | Commit rule |
