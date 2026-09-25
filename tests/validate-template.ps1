@@ -4,8 +4,8 @@ param()
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $required = @(
-    'AGENTS.md', 'README.md', '.gitignore',
-    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'docs/TERMINOLOGY.md', 'docs/GOVERNANCE.md', 'docs/INTEGRATIONS.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
+    'AGENTS.md', 'README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md', '.gitignore', '.github/workflows/template-checks.yml',
+    'docs/SPECIALIZATION.md', 'docs/UPGRADE.md', 'docs/TERMINOLOGY.md', 'docs/GOVERNANCE.md', 'docs/INTEGRATIONS.md', 'docs/RELEASING.md', 'tests/fixtures/v0.2-instance-lifecycle.md',
     'terminology/REGISTER.md', 'terminology/LOCAL_TERM_TEMPLATE.md',
     'project/CHARTER_TEMPLATE.md', 'project/DECISION_LOG_TEMPLATE.md',
     'hypotheses/REGISTER.md', 'hypotheses/HYPOTHESIS_TEMPLATE.md',
