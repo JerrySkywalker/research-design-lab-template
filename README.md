@@ -61,6 +61,6 @@ Claims use explicit labels: **SOURCE FACT**, **OWNER-PROVIDED**, **INFERENCE**, 
 
 ## Validation
 
-Run `pwsh -File tests/validate-template.ps1`. It is deliberately a small repository-contract check, not a workflow engine.
+Before proposing source-template changes, run `python scripts/validate_template.py` with Python 3 and Git. The existing `pwsh -File tests/validate-template.ps1` entry point remains available and is checked in source CI. These are small public-template contract checks, not workflow, instance-policy, migration, or scientific validity engines. A specialized project may adapt or replace them for its own paths and policy.
 
 Template source contributors should read [contributing guidance](CONTRIBUTING.md), the [changelog](CHANGELOG.md), and the [maintainer release procedure](docs/RELEASING.md). The source repository runs template checks on Windows and Linux; a generated instance may replace that source-only CI with its own checks.
