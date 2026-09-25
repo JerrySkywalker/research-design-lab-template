@@ -2,6 +2,10 @@
 
 This file records public template changes. An instance has its own history and does not inherit a later template release automatically.
 
+## v0.9.0
+
+- Added a portable Python validator entry point while retaining PowerShell compatibility; qualified the feature-frozen full lifecycle on synthetic instances. No research-state feature was added.
+
 ## v0.8.0
 
 - Added source-template CI on Windows and Linux, public maintainer release guidance, and validator checks for release files.
