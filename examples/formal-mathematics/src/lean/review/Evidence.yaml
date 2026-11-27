@@ -1,7 +1,7 @@
 {
   "run_id": "RUN-ODD-SUM-EXAMPLE",
   "status": "BLOCKED",
-  "method_ref": "METHOD.md",
+  "method_ref": "../../../METHOD.md",
   "input_identities": [
     "ODD-SUM/r1"
   ],
@@ -37,7 +37,7 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "dependency_lock_sha256": "c8b2702b9bc43dd27c86efb9774afeba0a730d86296de30b0fae663e2166744a",
-    "package_config_sha256": "1b1773e6a8bb09e4bcd1728087568e8314d62a683556d79859a16aca46527d55"
+    "dependency_lock_sha256": "de1d082d547b62978d9a8282a04eb5782201ae58d83d45349108b04d5bf67c9c",
+    "package_config_sha256": "fbd1a653bb417357aa9484d2b009f0ef990517156e0262a794f10d6156c5643c"
   }
 }

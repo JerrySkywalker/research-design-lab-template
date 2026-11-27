@@ -32,6 +32,17 @@ def run(*command):
     return result.stdout.strip()
 
 
+def check_materialized_dependencies(packages, required=False):
+    for name, package in packages.items():
+        package_dir = ROOT / ".lake/packages" / name
+        if not required and not package_dir.exists():
+            continue
+        if run("git", "-C", str(package_dir), "rev-parse", "HEAD") != package["rev"]:
+            raise ValueError(f"resolved dependency does not match lock: {name}")
+        if run("git", "-C", str(package_dir), "status", "--porcelain"):
+            raise ValueError(f"dirty dependency: {name}")
+
+
 def audit():
     evidence = json.loads(EVIDENCE.read_text(encoding="utf-8"))
     formal = evidence["formal"]
@@ -65,11 +76,10 @@ def audit():
     lake = run("lake", "--version")
     if "version 4.36.0," not in lean:
         raise ValueError(f"unexpected toolchain: {lean}")
+    check_materialized_dependencies(packages)
+    run("lake", "clean", "formalExample")
     build = run("lake", "build", "FormalExample")
-    for name, package in packages.items():
-        package_dir = ROOT / ".lake/packages" / name
-        if run("git", "-C", str(package_dir), "rev-parse", "HEAD") != package["rev"]:
-            raise ValueError(f"resolved dependency does not match lock: {name}")
+    check_materialized_dependencies(packages, required=True)
     axioms = run("lake", "env", "lean", "review/StatementLock.lean")
     if any(f"{name} axioms:" not in axioms for name in (
         "FormalExample.oddSum", formal["declaration"]
@@ -109,7 +119,7 @@ def self_test():
                                            "private axiom helper " + lemma_type)
     changed_conclusion = source[:start].replace("oddSum n = n ^ 2", "oddSum n = oddSum n") + "  rfl\n" + source[end:]
     changed_assumptions = source.replace("(n : Nat) : oddSum", "(n : Nat) (_extra : True) : oddSum")
-    changed_definition = changed_conclusion.replace("2 * n + 1", "2 * n + 3")
+    changed_definition = source.replace("2 * n + 1", "n * 2 + 1")
     missing_provenance = json.loads(evidence)
     missing_provenance["formal"]["source_provenance"] = ""
     forged_review = json.loads(evidence)

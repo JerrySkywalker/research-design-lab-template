@@ -1,4 +1,4 @@
-name = "formal-example"
+name = "formalExample"
 version = "0.1.0"
 defaultTargets = ["FormalExample"]
 
