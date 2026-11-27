@@ -2,6 +2,10 @@
 
 This file records public template changes. An instance has its own history and does not inherit a later template release automatically.
 
+## v1.1.0
+
+- Added an optional Lean/Mathlib Formal Mathematics profile with a synthetic Blueprint, statement and definition lock, axiom audit, and evidence guidance. The normal Lab workflow and source validators retain their existing dependencies.
+
 ## v1.0.0
 
 - First stable Research Template Pair contract. Carries the qualified v0.9 RC research model without a new feature or schema change.

@@ -1,0 +1,54 @@
+name: Optional Formal Mathematics example
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'examples/formal-mathematics/**'
+      - '.github/workflows/formal-example.yml'
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths:
+      - 'examples/formal-mathematics/**'
+      - '.github/workflows/formal-example.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    if: github.repository == 'JerrySkywalker/research-design-lab-template'
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: examples/formal-mathematics/src/lean
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
+        with:
+          lake-package-directory: examples/formal-mathematics/src/lean
+          use-mathlib-cache: 'false'
+          auto-config: 'false'
+          build: 'false'
+      - name: Expose Elan to native PowerShell
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $elanBin = Join-Path $env:USERPROFILE '.elan/bin'
+          if (!(Test-Path -LiteralPath (Join-Path $elanBin 'lake.exe'))) {
+            throw 'Elan did not install the Windows Lake shim'
+          }
+          $elanBin >> $env:GITHUB_PATH
+      - run: lake exe cache get Mathlib.Tactic.Ring
+      - run: python verify.py --self-test
+      - run: lake env lean Drafts/FalseConjecture.lean

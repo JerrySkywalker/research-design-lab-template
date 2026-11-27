@@ -1,0 +1,43 @@
+{
+  "run_id": "RUN-ODD-SUM-EXAMPLE",
+  "status": "BLOCKED",
+  "method_ref": "../../../METHOD.md",
+  "input_identities": [
+    "ODD-SUM/r1"
+  ],
+  "environment": {
+    "tools": [
+      {
+        "name": "Lean",
+        "version": "4.36.0"
+      },
+      {
+        "name": "Lake",
+        "version": "paired with Lean 4.36.0"
+      },
+      {
+        "name": "Mathlib",
+        "version": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842"
+      }
+    ]
+  },
+  "failure_or_block": "Illustrative input manifest. Record observations after a run.",
+  "interpretation_boundary": "Synthetic workflow sample; human review and evidence admission are separate.",
+  "reproduction": "python verify.py",
+  "formal": {
+    "claim": "ODD-SUM/r1",
+    "source_path": "FormalExample/OddSum.lean",
+    "declaration": "FormalExample.oddSum_eq_square",
+    "source_provenance": "Original synthetic fixture drafted with AI assistance; Mathlib Ring tactic.",
+    "lock_rev": "ODD-SUM/r1",
+    "review_state": "PENDING",
+    "artifact_ref": "projects/synthetic-odd-sum/runs/RUN-ODD-SUM-EXAMPLE/verification.txt",
+    "approved_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "dependency_lock_sha256": "de1d082d547b62978d9a8282a04eb5782201ae58d83d45349108b04d5bf67c9c",
+    "package_config_sha256": "fbd1a653bb417357aa9484d2b009f0ef990517156e0262a794f10d6156c5643c"
+  }
+}

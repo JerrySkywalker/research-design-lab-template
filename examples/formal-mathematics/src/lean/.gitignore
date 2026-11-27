@@ -1,0 +1,8 @@
+/.lake/
+/build/
+/cache/
+/logs/
+*.olean
+*.ilean
+*.log
+__pycache__/
