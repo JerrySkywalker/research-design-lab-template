@@ -1,5 +1,7 @@
 # Optional Formal Mathematics profile
 
+See the portal for [released Core Pair compatibility](https://github.com/JerrySkywalker/ResearchFabric/tree/main/compatibility).
+
 Use the profile when a hypothesis depends on definitions or claims that benefit from machine checking. The ordinary Design Lab setup and validators use Git and Python and do not require Lean, Elan, Mathlib, an editor plugin, or a Vault connection.
 
 ## Start with an example
@@ -7,7 +9,7 @@ Use the profile when a hypothesis depends on definitions or claims that benefit 
 1. Read the [synthetic Blueprint](../examples/formal-mathematics/BLUEPRINT.md) and [verification method](../examples/formal-mathematics/METHOD.md).
 2. Install user-level [Elan](https://github.com/leanprover/elan) and make its bin directory available in a fresh shell. Git, Python 3.11 or later and a working TLS connection suffice for the example. The Lean editor extension is optional.
 3. From a fresh clone, enter `examples/formal-mathematics/src/lean`. Run `lean --version` and `lake --version` from the package so Elan selects its pinned toolchain.
-4. Run `lake exe cache get Mathlib/Tactic/Ring.lean`, then `python verify.py`. The checker builds the accepted target, runs the trusted lock, and records the observed transitive axioms. Run `python verify.py --self-test` in a disposable copy for the documented rejection cases.
+4. Run `lake exe cache get Mathlib.Tactic.Ring`, then `python verify.py`. The checker builds the accepted target, runs the trusted lock, and records the observed transitive axioms. Run `python verify.py --self-test` in a disposable copy for the documented rejection cases.
 5. To opt in on an admitted branch of a project, copy or adapt the package under `src/lean/`. Put the project's Blueprint under `research/mathematics/`, the verification method under `methods/`, and the admitted run record under `experiments/`. Replace the synthetic names, lock and fixture; retain the toolchain, reviewed dependency resolution and ignore rules.
 
 The package's `FormalExample.lean` explicitly imports its accepted topic modules. `Drafts/` and any `Challenges/` remain outside that import closure. The project's research DAG links claims, definitions, assumptions and evidence; the Lean import DAG orders code modules. A research claim can depend on a reviewed result without importing its exploratory proofs.

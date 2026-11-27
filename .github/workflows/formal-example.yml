@@ -40,6 +40,15 @@ jobs:
           use-mathlib-cache: 'false'
           auto-config: 'false'
           build: 'false'
-      - run: lake exe cache get Mathlib/Tactic/Ring.lean
+      - name: Expose Elan to native PowerShell
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $elanBin = Join-Path $env:USERPROFILE '.elan/bin'
+          if (!(Test-Path -LiteralPath (Join-Path $elanBin 'lake.exe'))) {
+            throw 'Elan did not install the Windows Lake shim'
+          }
+          $elanBin >> $env:GITHUB_PATH
+      - run: lake exe cache get Mathlib.Tactic.Ring
       - run: python verify.py --self-test
       - run: lake env lean Drafts/FalseConjecture.lean
