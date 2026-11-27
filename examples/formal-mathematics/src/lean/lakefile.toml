@@ -1,0 +1,15 @@
+name = "formal-example"
+version = "0.1.0"
+defaultTargets = ["FormalExample"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "fc4f59e577feb1a4956671bc04ac18aaaf8cd842"
+
+[[lean_lib]]
+name = "FormalExample"
+
+[[lean_lib]]
+name = "Drafts"

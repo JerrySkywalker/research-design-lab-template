@@ -59,6 +59,10 @@ The [governance contract](docs/GOVERNANCE.md) defines `CAPTURE`, `ROUTINE_UPDATE
 
 Claims use explicit labels: **SOURCE FACT**, **OWNER-PROVIDED**, **INFERENCE**, **ASSUMPTION**, **DESIGN CHOICE**, or **CALCULATION / RESULT**. Agents work within admitted scope, preserve Owner decisions, and do not add services, databases, RAG, middleware, or custom workflow tooling without a demonstrated requirement.
 
+## Optional Formal Mathematics
+
+Use the [Formal Mathematics profile](docs/FORMAL_MATHEMATICS.md) when a claim needs a Lean/Mathlib proof. The synthetic example covers a Blueprint, a locked statement and definition, a checked proof and a failed conjecture. Ordinary Lab work and template validation continue to use Git and Python. If you already have a project, follow [safe instance upgrades](docs/UPGRADE.md) before porting any part of the example.
+
 ## Validation
 
 Before proposing source-template changes, run `python scripts/validate_template.py` with Python 3 and Git. The existing `pwsh -File tests/validate-template.ps1` entry point remains available and is checked in source CI. These are small public-template contract checks, not workflow, instance-policy, migration, or scientific validity engines. A specialized project may adapt or replace them for its own paths and policy.
